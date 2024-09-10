@@ -1,0 +1,15 @@
+#heading{
+    background-color: black;
+    color: white;
+    font-size: 25px;
+    text-align: center;
+}
+thead td{
+    font-size: 22px;
+    background-color: tan;
+    color: black;
+    font-weight: bold;
+}
+tbody td{
+    font-size: 18px;
+}

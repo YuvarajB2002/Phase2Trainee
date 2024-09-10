@@ -1,0 +1,78 @@
+<h3 id="heading">Car List</h3><br>
+<table class="table table-striped">
+    <thead class="table-dark">
+        <td>CarId</td>
+        <td>CarName</td>
+        <td>CarPrice</td>
+        <td>CarRating</td>
+        <td>Stock</td>
+        <td>CarImages</td>
+        <td>Add to Cart</td>
+        <td></td>
+    </thead>
+    <tbody>
+        <tr *ngFor="let car of listcar">
+            <td>{{car.carId}}</td>
+            <td>{{car.carName}}</td>
+            <td>{{car.carPrice}}</td>  
+            <td [style.color]="getColor(car.carRating)">{{car.carRating}}</td>   
+            <td [innerText]="checkStock(car)"></td>       
+            <td><img [src]="car.carImage" width="180px" alt="{{car.carName}}"/></td>
+            <td><button class="btn btn-info" (click)="display(car)">Add to Cart</button></td>
+            <td><button class="btn btn-success" (click)="buyCar(car)">Buy</button></td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Add Itmes</h3>
+
+<table class="table table-striped">
+    <thead class="table-dark">
+        <td>CarId</td>
+        <td>CarName</td>
+        <td>CarPrice</td>
+        <td>CarRating</td>
+        <td>Stock</td>
+        <td>CarImages</td>
+        <td></td>
+        <td>Remove</td>
+    </thead>
+    <tbody>
+        <tr *ngFor="let car of addcard">
+            <td>{{car.carId}}</td>
+            <td>{{car.carName}}</td>
+            <td>{{car.carPrice}}</td> 
+            <td>{{car.carRating}}</td> 
+            <td [innerText]="checkStock(car)"></td>           
+            <td><img [src]="car.carImage" width="180px" alt="{{car.carName}}"/></td>
+            <td><button class="btn btn-success" (click)="buyCar(car)">Buy</button></td>
+            <td><button (click)="cancel(car)">Cancel</button></td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Buying Items</h3>
+<table class="table table-striped">
+    <thead class="table-dark">
+        <td>CarId</td>
+        <td>CarName</td>
+        <td>CarPrice</td>
+        <td>CarRating</td>
+        <td>CarImages</td>
+    </thead>
+    <tbody>
+        <tr *ngFor="let car of buyingitem">
+            <td>{{car.carId}}</td>
+            <td>{{car.carName}}</td>
+            <td>{{car.carPrice}}</td> 
+            <td>{{car.carRating}}</td>         
+            <td><img [src]="car.carImage" width="180px" alt="{{car.carName}}"/></td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr style="font-size: 15px; font-weight: bold;">
+            <td colspan="4">Total Amount : </td>
+            <td>{{totalamount}}</td>
+        </tr>
+    </tfoot>
+</table>

@@ -1,0 +1,24 @@
+h1{
+    background-color:black;
+    color: white;
+    text-align: center;
+}
+#answer{
+    background-color:black;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+}
+.red{
+    color:red;
+}
+.size50{
+    font-size: 30px;
+}
+#image{
+    display: block;
+    margin:auto;
+     width: 25%;
+}
+
+
