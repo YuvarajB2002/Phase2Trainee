@@ -1,0 +1,32 @@
+#heading {
+    font-size: 28px;
+    color: #007bff;
+  }
+  
+  .table {
+    margin: 20px 0;
+  }
+  
+  
+  
+  thead {
+    background-color: #343a40;
+    color: white;
+  }
+  
+  tfoot td {
+    font-size: 18px;
+  }
+  
+  .alert-warning {
+    background-color: #ffc107;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  button {
+    border-radius: 10px;
+  }
+  
+  
+  

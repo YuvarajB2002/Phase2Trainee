@@ -1,0 +1,244 @@
+<h3 id="heading" class="text-center mt-4 mb-4 text-primary">Car List</h3>
+
+<h3 class="text-center mt-4 mb-4 text-primary">Add New Car</h3>
+
+<form #addCarForm="ngForm" (ngSubmit)="onSubmit(addCarForm)" class="w-50 mx-auto">
+  <!-- Car ID -->
+  <div class="form-group mb-3">
+    <label for="carId">Car ID</label>
+    <input
+      type="number"
+      class="form-control"
+      id="carId"
+      name="carId"
+      ngModel
+      required
+      #carId="ngModel"
+    />
+    <div *ngIf="carId.invalid && carId.touched" class="text-danger">
+      Car ID is required.
+    </div>
+  </div>
+
+  <!-- Company Name -->
+  <div class="form-group mb-3">
+    <label for="companyName">Company Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="companyName"
+      name="companyName"
+      ngModel
+      required
+      minlength="3"
+      #companyName="ngModel"
+    />
+    <div *ngIf="companyName.invalid && companyName.touched" class="text-danger">
+      Company Name is required and must be at least 3 characters long.
+    </div>
+  </div>
+
+  <!-- Car Price -->
+  <div class="form-group mb-3">
+    <label for="carPrice">Car Price (INR)</label>
+    <input
+      type="number"
+      class="form-control"
+      id="carPrice"
+      name="carPrice"
+      ngModel
+      required
+      min="50000"
+      max="10000000"
+      #carPrice="ngModel"
+    />
+    <div *ngIf="carPrice.invalid && carPrice.touched" class="text-danger">
+      Price must be between ₹50,000 and ₹10,000,000.
+    </div>
+  </div>
+
+  <!-- Car Rating -->
+  <div class="form-group mb-3">
+    <label for="carRating">Car Rating</label>
+    <input
+      type="number"
+      class="form-control"
+      id="carRating"
+      name="carRating"
+      ngModel
+      required
+      min="1"
+      max="10"
+      #carRating="ngModel"
+    />
+    <div *ngIf="carRating.invalid && carRating.touched" class="text-danger">
+      Rating must be between 1 and 10.
+    </div>
+  </div>
+
+  <!-- Stock -->
+  <div class="form-group mb-3">
+    <label for="stock">Stock</label>
+    <input
+      type="number"
+      class="form-control"
+      id="stock"
+      name="stock"
+      ngModel
+      required
+      min="0"
+      #stock="ngModel"
+    />
+    <div *ngIf="stock.invalid && stock.touched" class="text-danger">
+      Stock must be a non-negative number.
+    </div>
+  </div>
+
+  <!-- Car Image URL -->
+  <div class="form-group mb-3">
+    <label for="carImage">Car Image URL</label>
+    <input
+      type="text"
+      class="form-control"
+      id="carImage"
+      name="carImage"
+      ngModel
+      required
+      #carImage="ngModel"
+    />
+    
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" class="btn btn-primary" [disabled]="addCarForm.invalid">Add Car</button>
+</form>
+
+
+<div class="mb-4 text-center">
+    <label for="company" class="form-label">Filter by Company:</label>
+    <select id="company" class="form-select w-50" [(ngModel)]="selectedCompany" (change)="filterCarsByCompany()">
+      <option value="All">All Companies</option>
+      <option value="BMW">BMW</option>
+      <option value="Audi">Audi</option>
+      <option value="Rolls Royce">Rolls Royce</option>
+    </select>
+  </div>
+
+
+<div *ngIf="listcar.length > 0; else noProducts">
+  <table class="table table-bordered table-hover shadow-sm">
+    <thead class="thead-dark">
+      <tr>
+        <th>Car ID</th>
+        <th>Company Name</th>
+        <th>Car Price</th>
+        <th>Car Rating</th>
+        <th>Stock</th>
+        <th>Car Images</th>
+        <th>Add to Cart</th>
+        <th>Buy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let car of filteredCars" class="align-middle">
+        <td>{{ car.carId }}</td>
+        <td [ngSwitch]="car.companyName">
+            <div *ngSwitchCase="'BMW'" >
+               BMW
+            </div>
+            <div *ngSwitchCase="'Audi'">
+               Audi
+            </div>
+            <div *ngSwitchCase="'Rolls Royce'">
+              Rolls Royce
+            </div>
+            <div *ngSwitchDefault class="text-secondary">
+               {{ car.companyName }}
+            </div>
+          </td>
+        <td>{{ car.carPrice | currency: 'INR' }}</td>
+        <td [style.color]="getColor(car.carRating)">{{ car.carRating }}</td>
+        <td *ngIf="car.carStock > 0; else outOfStock">{{ car.carStock }}</td>
+        <ng-template #outOfStock>
+            <td class="text-danger font-weight-bold">Out of Stock</td>
+        </ng-template>
+        <td><img [src]="car.carImage" class="img-fluid rounded" alt="{{car.companyName}}" width="150" /></td>
+        <td *ngIf="car.carStock > 0">
+          <button class="btn btn-info btn-sm" (click)="display(car)">Add to Cart</button>
+        </td>
+        <td *ngIf="car.carStock > 0">
+          <button class="btn btn-success btn-sm" (click)="buyCar(car)">Buy</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #noProducts>
+  <div class="alert alert-warning text-center" role="alert">
+    No products available
+  </div>
+</ng-template>
+
+<h3 class="text-center mt-5 mb-4 text-primary">Add to Cart</h3>
+<table class="table table-bordered table-hover shadow-sm">
+  <thead class="thead-dark">
+    <tr>
+      <th>Car ID</th>
+      <th>Company Name</th>
+      <th>Car Price</th>
+      <th>Car Rating</th>
+      <th>Stock</th>
+      <th>Car Images</th>
+      <th>Buy</th>
+      <th>Remove</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let car of addcard" class="align-middle">
+      <td>{{ car.carId }}</td>
+      <td>{{ car.companyName }}</td>
+      <td>{{ car.carPrice | currency: 'INR' }}</td>
+      <td>{{ car.carRating }}</td>
+      <td *ngIf="car.carStock > 0; else outOfStock1">{{ car.carStock }}</td>
+      <ng-template #outOfStock1>
+        <td class="text-danger font-weight-bold">Out of Stock</td>
+    </ng-template>
+      <td><img [src]="car.carImage" class="img-fluid rounded" alt="{{car.companyName}}" width="150" /></td>
+      <td *ngIf="car.carStock > 0">
+        <button class="btn btn-success btn-sm" (click)="buyCar(car)">Buy</button>
+      </td>
+      <td>
+        <button class="btn btn-danger btn-sm" (click)="cancel(car)">Cancel</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 class="text-center mt-5 mb-4 text-primary">Buying Items</h3>
+<table class="table table-bordered table-hover shadow-sm">
+  <thead class="thead-dark">
+    <tr>
+      <th>Car ID</th>
+      <th>Company Name</th>
+      <th>Car Price</th>
+      <th>Car Rating</th>
+      <th>Car Images</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let car of buyingitem" class="align-middle">
+      <td>{{ car.carId }}</td>
+      <td>{{ car.companyName }}</td>
+      <td>{{ car.carPrice | currency: 'INR' }}</td>
+      <td>{{ car.carRating }}</td>
+      <td><img [src]="car.carImage" class="img-fluid rounded" alt="{{car.companyName}}" width="150" /></td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr class="font-weight-bold">
+      <td colspan="4" class="text-right">Total Amount:</td>
+      <td>{{ totalamount | currency: 'INR' }}</td>
+    </tr>
+  </tfoot>
+</table>

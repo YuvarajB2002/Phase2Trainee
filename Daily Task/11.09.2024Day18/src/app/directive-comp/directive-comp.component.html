@@ -1,0 +1,51 @@
+<p>directive-comp works!</p>
+
+<input type="number" name="num" [(ngModel)]="num" />
+<button (click)="checkpostive(num)">Check</button>
+
+<div *ngIf="result; then positive; else negative"></div>
+
+<ng-template #positive>
+  <h4>Positive Number</h4>
+</ng-template>
+
+<ng-template #negative>
+  <h4>Negative Number</h4>
+</ng-template>
+
+<button (click)="islogged()">{{logged?'LogOut':'LogIn'}}</button>
+
+<div *ngIf="logged; then login; else logout"></div>
+
+<ng-template #login>
+  <h4>Welcome all</h4>
+</ng-template>
+
+<ng-template #logout>
+  <h4>Please Log in</h4>
+</ng-template>
+
+<label for="color">Choose a color:</label>
+
+<select name="color" id="color" [(ngModel)]="notificationType">
+  <option value="success">Green</option>
+  <option value="warning">Yellow</option>
+  <option value="danger">Red</option>
+</select>
+
+<div [ngSwitch]="notificationType">
+    <div *ngSwitchCase="'success'" class="alert alert-success">
+      Success! 
+    </div>
+    <div *ngSwitchCase="'warning'" class="alert alert-warning">
+      Warning! 
+    </div>
+    <div *ngSwitchCase="'danger'" class="alert alert-danger">
+      Error! 
+    </div>
+    <div *ngSwitchDefault>
+      No notifications at this time.
+    </div>
+  </div>
+
+  
