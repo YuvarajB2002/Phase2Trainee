@@ -1,0 +1,12 @@
+<div class="container mt-5">
+    <h1>Update Company</h1>
+    <form (ngSubmit)="onUpdate()">
+        <div class="form-group">
+            <label for="compName">Company Name</label>
+            <input type="text" class="form-control" id="compName" name="compName" [(ngModel)]="company.companyName" required>
+           
+        </div>
+        <button type="submit" class="btn btn-primary">Update Company</button>
+    </form>
+    <button (click)="goBack()" class="btn btn-primary mt-3">Back to List</button>
+</div>

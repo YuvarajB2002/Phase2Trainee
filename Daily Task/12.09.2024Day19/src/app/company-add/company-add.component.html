@@ -1,0 +1,28 @@
+<div class="container mt-4">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Create New Company</h4>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="onSubmit()" #companyForm="ngForm">
+          <div class="form-group">
+            <label for="compname">Company Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="compname"
+              name="compname"
+              [(ngModel)]="company.companyName"
+              #compname="ngModel"
+              required
+            />
+            
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="companyForm.invalid">Add Company</button>
+
+          <button class="btn btn-primary ml-2" (click)="goBack()">Back To List</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,11 @@
+<div class="container mt-3">
+    <!-- Check if company object exists and has a companyId -->
+    <div *ngIf="company?.companyId" class="alert alert-info">
+      <h4 class="alert-heading">Company Details</h4>
+      <hr>
+      <p><strong>Company Id:</strong> {{company?.companyId}}</p>
+      <p><strong>Company Name:</strong> {{company?.companyName}}</p>
+      <button (click)="goBack()" class="btn btn-primary mt-3">Back to List</button>
+    </div>
+  </div>
+  
